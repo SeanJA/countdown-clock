@@ -1,19 +1,18 @@
 <?php
 
 header ('Content-type:image/gif');
+
 date_default_timezone_set('America/Halifax');
-include('GIFEncoder.class.php');
+include 'GIFEncoder.class.php';
+include 'php52-fix.php';
 
-$time = isset($_GET['time'])? $_GET['time']:0;
-$time = strtotime($time);
 
-$now = new DateTime();
-// $now->setTimezone(new DateTimezone('America/Halifax'));
+$time = $_GET['time'];
+$future_date = new DateTime(date('r',strtotime($time)));
+$time_now = time();
+$now = new DateTime(date('r', $time_now));
 
-$future_date = new DateTime();
-$future_date->setTimestamp($time);
 
-// $future_date->setTimezone(new DateTimezone('America/Halifax'));
 $frames = array();
 $delays = array();
 
@@ -28,10 +27,9 @@ $font = array(
 	'file'=>'DIGITALDREAM.ttf',
 	'color'=>imagecolorallocate($image, 255, 255, 255),
 );
-
 for($i = 0; $i <= 60; $i++){
-        //only one frame, 00:00:00:00
-	if($future_date->getTimestamp() < $now->getTimestamp()){
+	$interval = date_diff($future_date, $now);
+	if($future_date < $now){
 		// Open the first source image and add the text.
 		$image = imagecreatefrompng('countdown.png');;
 		$text = $interval->format('00:00:00:00');
@@ -43,7 +41,6 @@ for($i = 0; $i <= 60; $i++){
 		ob_end_clean();
 		break;
 	} else {
-		$interval = $future_date->diff($now);
 		// Open the first source image and add the text.
 		$image = imagecreatefrompng('countdown.png');;
 		$text = $interval->format('%D:%H:%I:%S');
@@ -54,7 +51,7 @@ for($i = 0; $i <= 60; $i++){
 		$delays[]=$delay;
 		ob_end_clean();
 	}
-	$now = $now->modify('+1 second');
+	$now->modify('+1 second');
 }
 // $GIF_src, $GIF_dly, $GIF_lop, $GIF_dis,
 // 							$GIF_red, $GIF_grn, $GIF_blu, $GIF_mod
