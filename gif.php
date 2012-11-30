@@ -1,7 +1,5 @@
 <?php
 
-header ('Content-type:image/gif');
-
 date_default_timezone_set('America/Halifax');
 include 'GIFEncoder.class.php';
 include 'php52-fix.php';
@@ -38,6 +36,7 @@ for($i = 0; $i <= 60; $i++){
 		imagegif($image);
 		$frames[]=ob_get_contents();
 		$delays[]=$delay;
+                $loops = 1;
 		ob_end_clean();
 		break;
 	} else {
@@ -49,12 +48,16 @@ for($i = 0; $i <= 60; $i++){
 		imagegif($image);
 		$frames[]=ob_get_contents();
 		$delays[]=$delay;
+                $loops = 0;
 		ob_end_clean();
 	}
 	$now->modify('+1 second');
 }
-// $GIF_src, $GIF_dly, $GIF_lop, $GIF_dis,
-// 							$GIF_red, $GIF_grn, $GIF_blu, $GIF_mod
-// Generate the animated gif and output to screen.
-$gif = new GIFEncoder($frames,$delays,-1,2,0,0,0,'bin');
-echo $gif->GetAnimation();
+//expire this image instantly
+header( 'Expires: Sat, 26 Jul 1997 05:00:00 GMT' );
+header( 'Last-Modified: ' . gmdate( 'D, d M Y H:i:s' ) . ' GMT' );
+header( 'Cache-Control: no-store, no-cache, must-revalidate' );
+header( 'Cache-Control: post-check=0, pre-check=0', false );
+header( 'Pragma: no-cache' ); 
+$gif = new AnimatedGif($frames,$delays,$loops);
+$gif->display();
