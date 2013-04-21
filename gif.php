@@ -42,7 +42,7 @@ for($i = 0; $i <= 60; $i++){
 	} else {
 		// Open the first source image and add the text.
 		$image = imagecreatefrompng('countdown.png');;
-		$text = $interval->format('%D:%H:%I:%S');
+		$text = $interval->format('%a:%H:%I:%S');
 		imagettftext ($image , $font['size'] , $font['angle'] , $font['x-offset'] , $font['y-offset'] , $font['color'] , $font['file'], $text );
 		ob_start();
 		imagegif($image);
