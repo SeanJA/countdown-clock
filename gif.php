@@ -2,7 +2,6 @@
 
 date_default_timezone_set('America/Halifax');
 include 'GIFEncoder.class.php';
-include 'php52-fix.php';
 
 
 $time = $_GET['time'];
