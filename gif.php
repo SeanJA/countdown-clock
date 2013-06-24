@@ -46,8 +46,8 @@ for($i = 0; $i <= 60; $i++){
 		// %a is weird in that it doesn’t give you a two digit number
 		// check if it starts with a single digit 0-9
 		// and prepend a 0 if it does
-		if(preg_match(‘/^[0-9]\:/’, $text)){
-			$text = “0″.$text;
+		if(preg_match('/^[0-9]\:/', $text)){
+			$text = '0'.$text;
 		}
 		imagettftext ($image , $font['size'] , $font['angle'] , $font['x-offset'] , $font['y-offset'] , $font['color'] , $font['file'], $text );
 		ob_start();
