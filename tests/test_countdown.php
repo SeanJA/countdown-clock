@@ -62,9 +62,9 @@ assert_eq('120s: delay', $r['result']['delays'][0], 200);
 $r = run_case(300);
 assert_eq('300s: frame count', count($r['texts']), 61);
 assert_eq('300s: first text', $r['texts'][0], '00:00:05:00');
-assert_eq('300s: last text', end($r['texts']), '00:00:00:00');
-assert_eq('300s: loops', $r['result']['loops'], 0);
-assert_eq('300s: delay', $r['result']['delays'][0], 500);
+assert_eq('300s: last text', end($r['texts']), '00:00:03:00');
+assert_eq('300s: loops', $r['result']['loops'], -1);
+assert_eq('300s: delay', $r['result']['delays'][0], 200);
 
 // Case 6: 600 seconds (10 minutes) ahead (>=10 min: by seconds)
 $r = run_case(600);

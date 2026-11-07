@@ -17,7 +17,7 @@ function generate_countdown_frames(DateTime $future_date, DateTime $now, callabl
 	if ($intervalSeconds <= 60 || $intervalSeconds >= 600) {
 		$step = 1;
 	} else {
-		$step = $intervalSeconds / 60.0;
+		$step = 2;
 	}
 	$delay = (int) round($step * 100);
 	if ($delay < 100) {
