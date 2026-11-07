@@ -20,7 +20,7 @@ $font = array(
 	'angle' => 0,
 	'x-offset' => 10,
 	'y-offset' => 70,
-	'file' => 'DIGITALDREAM.ttf',
+	'file' => __DIR__ . '/DIGITALDREAM.ttf',
 	'color' => imagecolorallocate($image, 255, 255, 255),
 );
 
